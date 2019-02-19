@@ -2,13 +2,18 @@
   "name": "react-use-form-hooks",
   "version": "0.0.1",
   "description": "React hooks for managing form state.",
-  "main": "index.js",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.esm.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "jest -o",
+    "test": "jest --watch --verbose=false",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "start": "npm-run-all --parallel test storybook",
-    "test-once": "jest"
+    "start": "concurrently -k --raw 'npm run storybook' 'npm run test'",
+    "test-once": "jest",
+    "build": "rollup -c",
+    "static": "build-storybook -o docs"
   },
   "repository": {
     "type": "git",
@@ -27,7 +32,9 @@
   "homepage": "https://github.com/AntonRublev360/react-use-form-hooks#readme",
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
     "@storybook/addon-actions": "^4.1.11",
     "@storybook/addon-links": "^4.1.11",
     "@storybook/addons": "^4.1.11",
@@ -35,19 +42,27 @@
     "babel-jest": "^24.1.0",
     "babel-loader": "^8.0.5",
     "classnames": "^2.2.6",
+    "concurrently": "^4.1.0",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.9.1",
     "husky": "^1.3.1",
     "jest": "^24.1.0",
     "lint-staged": "^8.1.3",
-    "lodash": "^4.17.11",
-    "npm-run-all": "^4.1.5",
+    "moment": "^2.24.0",
     "prettier": "^1.16.4",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "rollup": "^1.1.2",
     "validator": "^10.11.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^4.17.11"
+  },
   "jest": {
+    "clearMocks": true,
+    "setupFiles": [
+      "./src/test/testSetup.js"
+    ],
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
     }

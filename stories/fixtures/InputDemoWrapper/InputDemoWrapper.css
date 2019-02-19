@@ -1,0 +1,11 @@
+.input-demo-wrapper__info-cont {
+  min-width: 0;
+  padding: 0.5rem 0 0.5rem 0.5rem;
+}
+
+.input-demo-wrapper__input__info {
+  background-color: #ecf0f1;
+  border-radius: 0.2rem;
+  overflow-x: auto;
+  margin: 0;
+}

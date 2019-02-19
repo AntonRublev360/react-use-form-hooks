@@ -1,8 +1,41 @@
-import { useState } from 'react';
-import getValidationMessages from './lib/getValidationMessages';
-import getValueAccessor from './lib/getValueAccessor';
+'use strict';
 
-export default function useFormField({
+Object.defineProperty(exports, '__esModule', { value: true });
+
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var react = require('react');
+var get = _interopDefault(require('lodash/get'));
+
+function getValidationMessages(value, validate, isEmpty) {
+  if (typeof validate !== 'function' || isEmpty) {
+    return [[], []];
+  }
+  const validationResult = validate(value);
+  if (Array.isArray(validationResult)) {
+    if (validationResult.length > 1 && Array.isArray(validationResult[0])) {
+      return validationResult;
+    }
+    return [validationResult, []];
+  }
+  return validationResult ? [[validationResult], []] : [[], []];
+}
+
+function getValueAccessor(accessor) {
+  if (typeof accessor === 'string') {
+    return value => get(value, accessor);
+  }
+  if (typeof accessor === 'function') {
+    return accessor;
+  }
+  return defaultAccessor;
+}
+
+function defaultAccessor(value) {
+  return get(value, 'target.value', value);
+}
+
+function useFormField({
   accessor,
   adapter,
   emptyValue,
@@ -11,14 +44,14 @@ export default function useFormField({
   validate,
   validateRequired = isEmpty
 } = {}) {
-  const [value, setValue] = useState(initialValue);
-  const [isTouched, setTouched] = useState(false);
-  const [requiredValidationError, setRequiredValidationError] = useState(() =>
+  const [value, setValue] = react.useState(initialValue);
+  const [isTouched, setTouched] = react.useState(false);
+  const [requiredValidationError, setRequiredValidationError] = react.useState(() =>
     validateRequired(initialValue)
   );
   const isEmpty = !!requiredValidationError;
-  const [isOutOfSync, setOutOfSync] = useState(false);
-  const [validationState, setValidationState] = useState(() =>
+  const [isOutOfSync, setOutOfSync] = react.useState(false);
+  const [validationState, setValidationState] = react.useState(() =>
     getValidationMessages(initialValue, validate, isEmpty)
   );
   const isValid = !validationState[0].length;
@@ -90,9 +123,9 @@ export default function useFormField({
 
   return typeof adapter === 'function'
     ? {
-        ...adapter(field),
-        ...field
-      }
+      ...adapter(field),
+      ...field
+    }
     : field;
 }
 
@@ -110,3 +143,41 @@ function isEmpty(value) {
     (Array.isArray(value) && !value.length)
   );
 }
+
+function useFormWithFields({
+  onSubmit,
+  onFailedSubmit = defaultOnFailedSubmit,
+  fields
+} = {}) {
+  const [isSubmitAttempted, setSubmitAttempted] = react.useState(false);
+  const isSubmittable = !fields.find(isNotAcceptable);
+  const handleSubmit = event => {
+    const isSubmittable = fields.reduce(
+      (isSubmittable, field) => field.handleSubmitAttempt() && isSubmittable,
+      true
+    );
+    if (!isSubmittable) {
+      setSubmitAttempted(true);
+      onFailedSubmit(event);
+    } else if (typeof onSubmit === 'function') {
+      onSubmit(event);
+    }
+  };
+
+  return {
+    isSubmittable,
+    isSubmitAttempted,
+    handleSubmit
+  };
+}
+
+function isNotAcceptable(field) {
+  return !field.isAcceptable;
+}
+
+function defaultOnFailedSubmit(e) {
+  e.preventDefault();
+}
+
+exports.useFormField = useFormField;
+exports.useFormWithFields = useFormWithFields;

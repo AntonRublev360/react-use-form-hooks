@@ -1,0 +1,11 @@
+.validation-errors {
+  list-style: none;
+  font-size: small;
+  font-weight: normal;
+  padding-left: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.validation-errors__item {
+  color: #e74c3c;
+}

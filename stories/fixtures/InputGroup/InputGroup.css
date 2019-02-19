@@ -1,0 +1,41 @@
+.input-group {
+  color: #2c3e50;
+  padding: 0.5rem;
+  display: flex;
+  align-items: baseline;
+}
+
+.input-group__label {
+  font-size: medium;
+  font-weight: lighter;
+  margin-right: 1rem;
+}
+
+.input-group__input {
+  border: none;
+  border-bottom: 1px solid #2c3e50;
+  color: #2c3e50;
+  font-size: medium;
+  font-weight: normal;
+  padding: 0.5rem 0.5rem 0 0.5rem;
+}
+
+.input-group__input:focus,
+.input-group__input:active {
+  box-shadow: rgba(0, 0, 0, 0.6) 1px 1px 2px 1px;
+  outline: none;
+}
+
+.input-group__checkmark {
+  color: #27ae60;
+  margin-left: 0.5rem;
+  visibility: hidden;
+}
+
+.input-group--invalid.input-group--touched:not(.input-group--empty)>.input-group__input {
+  border-bottom-color: #e74c3c;
+}
+
+.input-group--valid.input-group--touched:not(.input-group--empty)>.input-group__checkmark {
+  visibility: visible;
+}
