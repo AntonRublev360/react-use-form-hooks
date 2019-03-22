@@ -11,7 +11,7 @@ Requires `react@^16.8.0 react-dom@^16.8.0` as peer dependencies.
 - Keeps field touched state
 - Keeps field validation state
 - Executes validation and exposes validation errors
-- Will supports async validation (TODO)
+- Will support async validation (TODO)
 
 ## Installation
 
@@ -93,7 +93,7 @@ const field = useFormField(params);
 Returns object with following fields:
 ```js
 {
-  isEmpty, // any; current field value
+  isEmpty, // boolean; indicates whether field value is empty
   isRequired, // boolean
   isTouched, // boolean; indicates whether field value has been changed
   isValid, // boolean; indicates whether field value is valid
@@ -105,7 +105,7 @@ Returns object with following fields:
   handleSubmitAttempt, // function: Called by useFormWithFields hook. May be called manually on form submit attempt if useFormWithFields is not used
   successfulValidations, // array of successful validations results
   validationErrors, // array of failed validation results / validation error messages
-  value // field value
+  value //any; field value
 }
 ```
 
@@ -397,7 +397,22 @@ function PasswordsMatch(props) {
 ```
 
 ## Development and contributions
-TODO
+
+yarn
+```
+git clone https://github.com/AntonRublev360/react-use-form-hooks.git
+cd react-use-form-hooks
+yarn install
+yarn start
+```
+
+npm
+```
+git clone https://github.com/AntonRublev360/react-use-form-hooks.git
+cd react-use-form-hooks
+npm i
+npm start
+```
 
 ## License
 
