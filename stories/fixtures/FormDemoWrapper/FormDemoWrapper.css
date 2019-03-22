@@ -1,0 +1,10 @@
+.form-demo-wrapper {
+  display: grid;
+  grid-template-columns: min-content auto;
+}
+
+@media (max-width: 640px) {
+  .form-demo-wrapper {
+    grid-template-columns: auto;
+  }
+}

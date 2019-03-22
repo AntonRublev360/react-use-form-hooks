@@ -1,4 +1,5 @@
 import validator from 'validator';
+import moment from 'moment';
 
 const MIN_PASSWORD_LENGTH = 10;
 const MAX_PASSWORD_LENGTH = 128;
@@ -55,8 +56,6 @@ export function validateStrongPassword(value) {
 
   if (!validator.matches(stringValue, /^\S*$/g)) {
     errorMessages.push('Password must not include spaces');
-  } else {
-    succesfulValidations.push(`No spaces`);
   }
 
   if (!validator.matches(stringValue, /.*[A-Z]+.*/g)) {
@@ -85,4 +84,15 @@ export function validatePasswordsMatch(value, valueToMatch) {
     return null;
   }
   return 'Passwords must match';
+}
+
+export function validateDateInThePast(value) {
+  const date = moment(value, 'YYYYYY-MM-DD');
+  if (!date.isValid()) {
+    return 'Value must be a valid date';
+  }
+  if (date <= moment()) {
+    return null;
+  }
+  return 'Date must be in the past';
 }

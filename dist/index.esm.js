@@ -1,8 +1,35 @@
 import { useState } from 'react';
-import getValidationMessages from './lib/getValidationMessages';
-import getValueAccessor from './lib/getValueAccessor';
+import get from 'lodash/get';
 
-export default function useFormField({
+function getValidationMessages(value, validate, isEmpty) {
+  if (typeof validate !== 'function' || isEmpty) {
+    return [[], []];
+  }
+  const validationResult = validate(value);
+  if (Array.isArray(validationResult)) {
+    if (validationResult.length > 1 && Array.isArray(validationResult[0])) {
+      return validationResult;
+    }
+    return [validationResult, []];
+  }
+  return validationResult ? [[validationResult], []] : [[], []];
+}
+
+function getValueAccessor(accessor) {
+  if (typeof accessor === 'string') {
+    return value => get(value, accessor);
+  }
+  if (typeof accessor === 'function') {
+    return accessor;
+  }
+  return defaultAccessor;
+}
+
+function defaultAccessor(value) {
+  return get(value, 'target.value', value);
+}
+
+function useFormField({
   accessor,
   adapter,
   emptyValue,
@@ -90,9 +117,9 @@ export default function useFormField({
 
   return typeof adapter === 'function'
     ? {
-        ...adapter(field),
-        ...field
-      }
+      ...adapter(field),
+      ...field
+    }
     : field;
 }
 
@@ -110,3 +137,40 @@ function isEmpty(value) {
     (Array.isArray(value) && !value.length)
   );
 }
+
+function useFormWithFields({
+  onSubmit,
+  onFailedSubmit = defaultOnFailedSubmit,
+  fields
+} = {}) {
+  const [isSubmitAttempted, setSubmitAttempted] = useState(false);
+  const isSubmittable = !fields.find(isNotAcceptable);
+  const handleSubmit = event => {
+    const isSubmittable = fields.reduce(
+      (isSubmittable, field) => field.handleSubmitAttempt() && isSubmittable,
+      true
+    );
+    if (!isSubmittable) {
+      setSubmitAttempted(true);
+      onFailedSubmit(event);
+    } else if (typeof onSubmit === 'function') {
+      onSubmit(event);
+    }
+  };
+
+  return {
+    isSubmittable,
+    isSubmitAttempted,
+    handleSubmit
+  };
+}
+
+function isNotAcceptable(field) {
+  return !field.isAcceptable;
+}
+
+function defaultOnFailedSubmit(e) {
+  e.preventDefault();
+}
+
+export { useFormField, useFormWithFields };

@@ -1,0 +1,15 @@
+.successful-validations {
+  list-style: none;
+  font-size: small;
+  font-weight: normal;
+  padding-left: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.successful-validations--valid {
+  display: none;
+}
+
+.successful-validations__item {
+  color: #27ae60;
+}
