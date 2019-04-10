@@ -163,11 +163,19 @@ function useFormWithFields({
       onSubmit(event);
     }
   };
+  const handleReset = () => {
+    fields.forEach(field => field.handleReset());
+  };
+  const handleClear = () => {
+    fields.forEach(field => field.handleClear());
+  };
 
   return {
     isSubmittable,
     isSubmitAttempted,
-    handleSubmit
+    handleSubmit,
+    handleReset,
+    handleClear
   };
 }
 
