@@ -139,7 +139,7 @@ describe('useFormField react hook', () => {
       testReturnValue(renderSpy, 'value', '', 'empty string');
       testReturnValue(renderSpy, 'isEmpty', true);
       testReturnValue(renderSpy, 'isRequired', false);
-      testReturnValue(renderSpy, 'isTouched', false);
+      testReturnValue(renderSpy, 'isTouched', true);
       testReturnValue(renderSpy, 'isValid', true);
       testReturnValue(renderSpy, 'isAcceptable', true);
       testReturnValue(renderSpy, 'successfulValidations', [], 'empty array');
@@ -377,7 +377,7 @@ describe('useFormField react hook', () => {
       testReturnValue(renderSpy, 'value', 'testInitialValue');
       testReturnValue(renderSpy, 'isEmpty', false);
       testReturnValue(renderSpy, 'isRequired', false);
-      testReturnValue(renderSpy, 'isTouched', false);
+      testReturnValue(renderSpy, 'isTouched', true);
       testReturnValue(renderSpy, 'isValid', true);
       testReturnValue(renderSpy, 'isAcceptable', true);
       testReturnValue(renderSpy, 'successfulValidations', [], 'empty array');
@@ -443,7 +443,7 @@ describe('useFormField react hook', () => {
       testReturnValue(renderSpy, 'value', null);
       testReturnValue(renderSpy, 'isEmpty', true);
       testReturnValue(renderSpy, 'isRequired', false);
-      testReturnValue(renderSpy, 'isTouched', false);
+      testReturnValue(renderSpy, 'isTouched', true);
       testReturnValue(renderSpy, 'isValid', true);
       testReturnValue(renderSpy, 'isAcceptable', true);
       testReturnValue(renderSpy, 'successfulValidations', [], 'empty array');
@@ -553,7 +553,7 @@ describe('useFormField react hook', () => {
       testReturnValue(renderSpy, 'value', '', 'empty string');
       testReturnValue(renderSpy, 'isEmpty', true);
       testReturnValue(renderSpy, 'isRequired', true);
-      testReturnValue(renderSpy, 'isTouched', false);
+      testReturnValue(renderSpy, 'isTouched', true);
       testReturnValue(renderSpy, 'isValid', true);
       testReturnValue(renderSpy, 'isAcceptable', false);
       testReturnValue(renderSpy, 'successfulValidations', [], 'empty array');
@@ -686,7 +686,7 @@ describe('useFormField react hook', () => {
       testReturnValue(renderSpy, 'value', null);
       testReturnValue(renderSpy, 'isEmpty', true);
       testReturnValue(renderSpy, 'isRequired', true);
-      testReturnValue(renderSpy, 'isTouched', false);
+      testReturnValue(renderSpy, 'isTouched', true);
       testReturnValue(renderSpy, 'isValid', true);
       testReturnValue(renderSpy, 'isAcceptable', false);
       testReturnValue(renderSpy, 'successfulValidations', [], 'empty array');
@@ -826,7 +826,7 @@ describe('useFormField react hook', () => {
       testReturnValue(renderSpy, 'value', '', 'empty string');
       testReturnValue(renderSpy, 'isEmpty', true);
       testReturnValue(renderSpy, 'isRequired', true);
-      testReturnValue(renderSpy, 'isTouched', false);
+      testReturnValue(renderSpy, 'isTouched', true);
       testReturnValue(renderSpy, 'isValid', true);
       testReturnValue(renderSpy, 'isAcceptable', false);
       testReturnValue(renderSpy, 'successfulValidations', [], 'empty array');
@@ -1012,7 +1012,7 @@ describe('useFormField react hook', () => {
       testReturnValue(renderSpy, 'value', '', 'empty string');
       testReturnValue(renderSpy, 'isEmpty', true);
       testReturnValue(renderSpy, 'isRequired', false);
-      testReturnValue(renderSpy, 'isTouched', false);
+      testReturnValue(renderSpy, 'isTouched', true);
       testReturnValue(renderSpy, 'isValid', true);
       testReturnValue(renderSpy, 'isAcceptable', true);
       testReturnValue(renderSpy, 'successfulValidations', [], 'empty array');
@@ -1034,7 +1034,7 @@ describe('useFormField react hook', () => {
       testReturnValue(renderSpy, 'value', '', 'empty string');
       testReturnValue(renderSpy, 'isEmpty', true);
       testReturnValue(renderSpy, 'isRequired', false);
-      testReturnValue(renderSpy, 'isTouched', false);
+      testReturnValue(renderSpy, 'isTouched', true);
       testReturnValue(renderSpy, 'isValid', true);
       testReturnValue(renderSpy, 'isAcceptable', true);
       testReturnValue(renderSpy, 'successfulValidations', [], 'empty array');
@@ -1219,7 +1219,7 @@ describe('useFormField react hook', () => {
       testReturnValue(renderSpy, 'value', 'INVALID_VALUE');
       testReturnValue(renderSpy, 'isEmpty', false);
       testReturnValue(renderSpy, 'isRequired', false);
-      testReturnValue(renderSpy, 'isTouched', false);
+      testReturnValue(renderSpy, 'isTouched', true);
       testReturnValue(renderSpy, 'isValid', false);
       testReturnValue(renderSpy, 'isAcceptable', false);
       testReturnValue(renderSpy, 'successfulValidations', [], 'empty array');
@@ -1329,7 +1329,7 @@ describe('useFormField react hook', () => {
       testReturnValue(renderSpy, 'value', '', 'empty string');
       testReturnValue(renderSpy, 'isEmpty', true);
       testReturnValue(renderSpy, 'isRequired', false);
-      testReturnValue(renderSpy, 'isTouched', false);
+      testReturnValue(renderSpy, 'isTouched', true);
       testReturnValue(renderSpy, 'isValid', true);
       testReturnValue(renderSpy, 'isAcceptable', true);
       testReturnValue(renderSpy, 'successfulValidations', [], 'empty array');
@@ -1509,7 +1509,7 @@ describe('useFormField react hook', () => {
       testReturnValue(renderSpy, 'value', '', 'empty string');
       testReturnValue(renderSpy, 'isEmpty', true);
       testReturnValue(renderSpy, 'isRequired', false);
-      testReturnValue(renderSpy, 'isTouched', false);
+      testReturnValue(renderSpy, 'isTouched', true);
       testReturnValue(renderSpy, 'isValid', true);
       testReturnValue(renderSpy, 'isAcceptable', true);
       testReturnValue(renderSpy, 'successfulValidations', [], 'empty array');
@@ -1531,7 +1531,7 @@ describe('useFormField react hook', () => {
       testReturnValue(renderSpy, 'value', '', 'empty string');
       testReturnValue(renderSpy, 'isEmpty', true);
       testReturnValue(renderSpy, 'isRequired', false);
-      testReturnValue(renderSpy, 'isTouched', false);
+      testReturnValue(renderSpy, 'isTouched', true);
       testReturnValue(renderSpy, 'isValid', true);
       testReturnValue(renderSpy, 'isAcceptable', true);
       testReturnValue(renderSpy, 'successfulValidations', [], 'empty array');
@@ -1725,7 +1725,7 @@ describe('useFormField react hook', () => {
       testReturnValue(renderSpy, 'value', '', 'empty string');
       testReturnValue(renderSpy, 'isEmpty', true);
       testReturnValue(renderSpy, 'isRequired', false);
-      testReturnValue(renderSpy, 'isTouched', false);
+      testReturnValue(renderSpy, 'isTouched', true);
       testReturnValue(renderSpy, 'isValid', true);
       testReturnValue(renderSpy, 'isAcceptable', true);
       testReturnValue(renderSpy, 'successfulValidations', [], 'empty array');
@@ -1747,7 +1747,7 @@ describe('useFormField react hook', () => {
       testReturnValue(renderSpy, 'value', '', 'empty string');
       testReturnValue(renderSpy, 'isEmpty', true);
       testReturnValue(renderSpy, 'isRequired', false);
-      testReturnValue(renderSpy, 'isTouched', false);
+      testReturnValue(renderSpy, 'isTouched', true);
       testReturnValue(renderSpy, 'isValid', true);
       testReturnValue(renderSpy, 'isAcceptable', true);
       testReturnValue(renderSpy, 'successfulValidations', [], 'empty array');

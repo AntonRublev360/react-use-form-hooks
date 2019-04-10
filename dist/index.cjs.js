@@ -54,6 +54,12 @@ function useFormField({
   const [validationState, setValidationState] = react.useState(() =>
     getValidationMessages(initialValue, validate, isEmpty)
   );
+  react.useEffect(() => {
+    if (!isTouched && !isOutOfSync && (initialValue !== value)) {
+      setValue(initialValue);
+    }
+  }, [isTouched, isOutOfSync, initialValue, value, setValue]);
+
   const isValid = !validationState[0].length;
   const valueAccessor = getValueAccessor(accessor);
 
@@ -87,7 +93,7 @@ function useFormField({
     updateValue(initialValue);
   }
   const handleClear = () => {
-    setTouched(false);
+    setTouched(true);
     const value = typeof emptyValue !== 'undefined' ? emptyValue : initialValue;
     updateValue(value);
   };
@@ -123,9 +129,9 @@ function useFormField({
 
   return typeof adapter === 'function'
     ? {
-      ...adapter(field),
-      ...field
-    }
+        ...adapter(field),
+        ...field
+      }
     : field;
 }
 
