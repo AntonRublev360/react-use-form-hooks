@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import getValidationMessages from './lib/getValidationMessages';
 import getValueAccessor from './lib/getValueAccessor';
 
@@ -21,6 +21,12 @@ export default function useFormField({
   const [validationState, setValidationState] = useState(() =>
     getValidationMessages(initialValue, validate, isEmpty)
   );
+  useEffect(() => {
+    if (!isTouched && !isOutOfSync && initialValue !== value) {
+      setValue(initialValue);
+    }
+  }, [isTouched, isOutOfSync, initialValue, value, setValue]);
+
   const isValid = !validationState[0].length;
   const valueAccessor = getValueAccessor(accessor);
 
@@ -54,7 +60,7 @@ export default function useFormField({
     updateValue(initialValue);
   }
   const handleClear = () => {
-    setTouched(false);
+    setTouched(true);
     const value = typeof emptyValue !== 'undefined' ? emptyValue : initialValue;
     updateValue(value);
   };
