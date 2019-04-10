@@ -48,12 +48,6 @@ function useFormField({
   const [validationState, setValidationState] = useState(() =>
     getValidationMessages(initialValue, validate, isEmpty)
   );
-  useEffect(() => {
-    if (!isTouched && !isOutOfSync && (initialValue !== value)) {
-      setValue(initialValue);
-    }
-  }, [isTouched, isOutOfSync, initialValue, value, setValue]);
-
   const isValid = !validationState[0].length;
   const valueAccessor = getValueAccessor(accessor);
 
@@ -101,6 +95,12 @@ function useFormField({
     setTouched(true);
     return validateValue(value);
   };
+
+  useEffect(() => {
+    if (!isTouched && !isOutOfSync && initialValue !== value) {
+      handleReset();
+    }
+  }, [isTouched, isOutOfSync, initialValue, value, setValue]);
 
   const field = {
     isEmpty,
