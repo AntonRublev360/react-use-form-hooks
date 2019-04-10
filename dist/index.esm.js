@@ -1,5 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import get from 'lodash/get';
+
+function useSubsequentEffect(effect, dependencies) {
+  const didMountRef = useRef(false);
+
+  useEffect(() => {
+    if (didMountRef.current) {
+      effect();
+    } else {
+      didMountRef.current = true;
+    }
+  }, dependencies);
+}
 
 function getValidationMessages(value, validate, isEmpty) {
   if (typeof validate !== 'function' || isEmpty) {
@@ -36,7 +48,8 @@ function useFormField({
   initialValue = '',
   isRequired = false,
   validate,
-  validateRequired = isEmpty
+  validateRequired = isEmpty,
+  validationDependencies = []
 } = {}) {
   const [value, setValue] = useState(initialValue);
   const [isTouched, setTouched] = useState(false);
@@ -101,6 +114,9 @@ function useFormField({
       handleReset();
     }
   }, [isTouched, isOutOfSync, initialValue, value, setValue]);
+  useSubsequentEffect(() => {
+    validateValue(value);
+  }, validationDependencies);
 
   const field = {
     isEmpty,

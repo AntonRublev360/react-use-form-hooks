@@ -7,6 +7,18 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 var react = require('react');
 var get = _interopDefault(require('lodash/get'));
 
+function useSubsequentEffect(effect, dependencies) {
+  const didMountRef = react.useRef(false);
+
+  react.useEffect(() => {
+    if (didMountRef.current) {
+      effect();
+    } else {
+      didMountRef.current = true;
+    }
+  }, dependencies);
+}
+
 function getValidationMessages(value, validate, isEmpty) {
   if (typeof validate !== 'function' || isEmpty) {
     return [[], []];
@@ -42,7 +54,8 @@ function useFormField({
   initialValue = '',
   isRequired = false,
   validate,
-  validateRequired = isEmpty
+  validateRequired = isEmpty,
+  validationDependencies = []
 } = {}) {
   const [value, setValue] = react.useState(initialValue);
   const [isTouched, setTouched] = react.useState(false);
@@ -107,6 +120,9 @@ function useFormField({
       handleReset();
     }
   }, [isTouched, isOutOfSync, initialValue, value, setValue]);
+  useSubsequentEffect(() => {
+    validateValue(value);
+  }, validationDependencies);
 
   const field = {
     isEmpty,

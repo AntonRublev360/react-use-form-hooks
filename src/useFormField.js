@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import useSubsequentEffect from './lib/useSubsequentEffect';
 import getValidationMessages from './lib/getValidationMessages';
 import getValueAccessor from './lib/getValueAccessor';
 
@@ -9,7 +10,8 @@ export default function useFormField({
   initialValue = '',
   isRequired = false,
   validate,
-  validateRequired = isEmpty
+  validateRequired = isEmpty,
+  validationDependencies = []
 } = {}) {
   const [value, setValue] = useState(initialValue);
   const [isTouched, setTouched] = useState(false);
@@ -74,6 +76,9 @@ export default function useFormField({
       handleReset();
     }
   }, [isTouched, isOutOfSync, initialValue, value, setValue]);
+  useSubsequentEffect(() => {
+    validateValue(value);
+  }, validationDependencies);
 
   const field = {
     isEmpty,
