@@ -167,16 +167,16 @@ function useFormWithFields({
 } = {}) {
   const [isSubmitAttempted, setSubmitAttempted] = useState(false);
   const isSubmittable = !fields.find(isNotAcceptable);
-  const handleSubmit = event => {
+  const handleSubmit = (...params) => {
     const isSubmittable = fields.reduce(
       (isSubmittable, field) => field.handleSubmitAttempt() && isSubmittable,
       true
     );
     if (!isSubmittable) {
       setSubmitAttempted(true);
-      onFailedSubmit(event);
+      onFailedSubmit(...params);
     } else if (typeof onSubmit === 'function') {
-      onSubmit(event);
+      onSubmit(...params);
     }
   };
   const handleReset = () => {
